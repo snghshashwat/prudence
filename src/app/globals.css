@@ -1,26 +1,199 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-heading);
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-deep: var(--deep);
+  --color-deep-dark: var(--deep-dark);
+  --color-cream: var(--cream);
+  --color-status-not-started: var(--status-not-started);
+  --color-status-in-progress: var(--status-in-progress);
+  --color-status-completed: var(--status-completed);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Two different jobs, deliberately not solved the same way:
+ *
+ * Light mode is the brand: navy is the dominant hue, on white/cream.
+ *
+ * Dark mode is a dark theme, not "the brand, but dark": no navy wash, no
+ * blue accent. It's neutral black/gray/white, richness comes from lightness
+ * contrast between surfaces (sidebar darkest, page mid, cards lightest),
+ * the same way Linear/Vercel/GitHub's dark themes get depth without
+ * tinting every surface some hue. `--deep` (sidebar/hero/footer) flips to
+ * neutral black in dark mode instead of staying navy, on purpose: this
+ * codebase has gone back and forth on that exact token, see git history if
+ * dark mode ever looks "off" again, and resist the urge to reach for a
+ * color fix. It's almost never the fix.
+ *
+ * Status still needs three distinguishable states: gray (not started),
+ * bright neutral (in progress), green (completed). Green is a functional
+ * status signal (success/done), not a theme color, so it's exempt from
+ * "no hue in dark mode."
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #16233f;
+  --card: #ffffff;
+  --card-foreground: #16233f;
+  --popover: #ffffff;
+  --popover-foreground: #16233f;
+  --primary: #16233f;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f2ec;
+  --secondary-foreground: #16233f;
+  --muted: #f5f2ec;
+  --muted-foreground: #6b6455;
+  --accent: #ece7db;
+  --accent-foreground: #16233f;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e6e1d6;
+  --input: #e6e1d6;
+  --ring: #16233f;
+  --chart-1: #16233f;
+  --chart-2: #6b6455;
+  --chart-3: #8a9b8e;
+  --chart-4: #a39b8b;
+  --chart-5: #c9beaa;
+  --radius: 0.5rem;
+  --sidebar: #16233f;
+  --sidebar-foreground: #eef1f6;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #16233f;
+  --sidebar-accent: #223052;
+  --sidebar-accent-foreground: #eef1f6;
+  --sidebar-border: #263a63;
+  --sidebar-ring: #ffffff;
+
+  /* `navy` is the heading/text brand colour and flips light in dark mode.
+     `deep` is the always-dark, always-navy surface (sidebar, hero, footer):
+     it does NOT flip, so those surfaces stay the brand color in both themes. */
+  --navy: #16233f;
+  --navy-dark: #0d1526;
+  --deep: #16233f;
+  --deep-dark: #0d1526;
+  --cream: #f5f2ec;
+  --status-not-started: #8a8578;
+  --status-in-progress: #16233f;
+  --status-completed: #3f6b4f;
+}
+
+.dark {
+  /* True neutral dark theme: grayscale only, zero hue. Depth comes from
+     the lightness steps between sidebar (darkest) → page → card
+     (lightest), not from color. */
+  --background: #0e0e0e;
+  --foreground: #ededed;
+  --card: #1a1a1a;
+  --card-foreground: #ededed;
+  --popover: #1a1a1a;
+  --popover-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0e0e0e;
+  --secondary: #1f1f1f;
+  --secondary-foreground: #ededed;
+  --muted: #1f1f1f;
+  --muted-foreground: #9c9c9c;
+  --accent: #242424;
+  --accent-foreground: #ededed;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: #2c2c2c;
+  --input: #2c2c2c;
+  --ring: #ededed;
+  --chart-1: #ededed;
+  --chart-2: #8f9d8a;
+  --chart-3: #9c9c9c;
+  --chart-4: #7a7a7a;
+  --chart-5: #5c5c5c;
+  --sidebar: #070707;
+  --sidebar-foreground: #ededed;
+  --sidebar-primary: #ededed;
+  --sidebar-primary-foreground: #0e0e0e;
+  --sidebar-accent: #1c1c1c;
+  --sidebar-accent-foreground: #ededed;
+  --sidebar-border: #2a2a2a;
+  --sidebar-ring: #ededed;
+
+  /* Headings flip light; `deep` flips to neutral black (not navy) here,
+     see the note above `:root`. */
+  --navy: #ededed;
+  --navy-dark: #ffffff;
+  --deep: #070707;
+  --deep-dark: #000000;
+  --cream: #151515;
+  --status-not-started: #8a8a8a;
+  --status-in-progress: #ededed;
+  --status-completed: #7fb08d;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
