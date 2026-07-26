@@ -12,6 +12,23 @@ import {
 
 export type AuthActionState = { error: string | null };
 
+// createClient() throws synchronously on an empty URL/key, so every action
+// below checks this first rather than crashing the server action (an
+// unhandled exception here surfaces to the visitor as a generic
+// "Application error", not a helpful message).
+function supabaseNotConfigured(): AuthActionState | null {
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    return null;
+  }
+  return {
+    error:
+      "Sign-in isn't connected yet. This deployment doesn't have a Supabase project configured.",
+  };
+}
+
 // One-click login for frontend testing without a Supabase project, see
 // lib/demo/session.ts and lib/demo/store.ts. Remove once real accounts are
 // the only way in.
@@ -28,6 +45,9 @@ export async function signIn(
   _prevState: AuthActionState,
   formData: FormData
 ): Promise<AuthActionState> {
+  const notConfigured = supabaseNotConfigured();
+  if (notConfigured) return notConfigured;
+
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
 
@@ -54,6 +74,9 @@ export async function signUp(
   _prevState: AuthActionState,
   formData: FormData
 ): Promise<AuthActionState> {
+  const notConfigured = supabaseNotConfigured();
+  if (notConfigured) return notConfigured;
+
   const fullName = String(formData.get("full_name") ?? "");
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");

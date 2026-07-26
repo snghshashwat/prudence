@@ -35,6 +35,25 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
+  // No Supabase project connected yet (e.g. marketing-only deploy before
+  // the backend is wired up). createServerClient throws synchronously on
+  // an empty URL/key, which would 500 every visit to /login or /signup,
+  // not just the parts of the app that actually need a database. Treat
+  // "not configured" as "not logged in": auth pages render normally,
+  // protected pages redirect to login, nothing crashes.
+  const supabaseConfigured = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  if (!supabaseConfigured) {
+    if (isProtected) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+    return response;
+  }
+
   let supabaseResponse = response;
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

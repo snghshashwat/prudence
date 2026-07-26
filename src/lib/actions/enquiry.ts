@@ -102,6 +102,18 @@ export async function submitEnquiry(
     return { error: null, success: true };
   }
 
+  // createClient() throws synchronously on an empty URL/key, so check first
+  // rather than crashing this deployment's main conversion form.
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    return {
+      error:
+        "This form isn't connected yet. Please reach out using the contact details above instead.",
+    };
+  }
+
   const supabase = await createClient();
   const { error } = await supabase.from("contact_enquiries").insert(row);
 
