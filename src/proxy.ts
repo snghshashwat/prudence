@@ -10,15 +10,20 @@ export async function proxy(request: NextRequest) {
   const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
   const isAuthPath = AUTH_PATHS.some((p) => pathname.startsWith(p));
 
-  // Demo session (see lib/demo/session.ts), lets the frontend be tested
-  // with no Supabase project configured. Short-circuits before any
-  // Supabase call so it also works fully offline.
+  // Demo session (see lib/demo/session.ts), lets a link sent to someone
+  // for review be explored end to end with no Supabase project connected.
+  // Short-circuits before any Supabase call so it also works fully offline.
   //
-  // SECURITY: mirrors isDemoEnabled(). A stale demo_role cookie must not
-  // grant access once the flag is off or the build is production.
+  // SECURITY: mirrors isDemoEnabled() exactly, keep the two in sync. A
+  // stale demo_role cookie must not grant access once the flag is off, and
+  // the flag itself must not grant access once a real Supabase project is
+  // connected, that's the actual safety rail, not the flag.
   const demoEnabled =
-    process.env.NODE_ENV !== "production" &&
-    process.env.NEXT_PUBLIC_ENABLE_DEMO === "true";
+    process.env.NEXT_PUBLIC_ENABLE_DEMO === "true" &&
+    !(
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
   const demoRole = demoEnabled
     ? request.cookies.get("demo_role")?.value
     : undefined;

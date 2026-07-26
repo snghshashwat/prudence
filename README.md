@@ -66,10 +66,15 @@ Settings covers appearance (light / dark / system), notification preferences
 ## Security
 
 **Demo mode is an auth bypass.** The one-click demo logins skip
-authentication entirely. They are gated behind `NEXT_PUBLIC_ENABLE_DEMO`
-and force-disabled whenever `NODE_ENV === "production"`, checked in three
-places: the button (render), the server action (execution), and `proxy.ts`
-(stale cookie). Never set that flag on a deployed environment.
+authentication entirely. They're gated behind `NEXT_PUBLIC_ENABLE_DEMO`,
+checked independently in three places (button render, server action,
+`proxy.ts` for a stale cookie), but the flag alone is not the safety rail:
+demo mode also auto-disables the moment a real Supabase project is
+connected (`NEXT_PUBLIC_SUPABASE_URL` / `_ANON_KEY` both set), regardless
+of the flag. That's intentional, a flag left on by accident is a certainty,
+not a risk to plan around, so it's safe to enable on a backend-less deploy
+for a review link, but never rely on remembering to unset it once real
+customer data is reachable. Unset it anyway when you connect Supabase.
 
 Other measures in place:
 

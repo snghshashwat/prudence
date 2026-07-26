@@ -1,22 +1,32 @@
 import "server-only";
 import { cookies } from "next/headers";
 
-// Cookie-based demo session, lets the frontend be tested end-to-end with
-// no Supabase project configured. Not real auth: one-click, no password,
-// state lives in-memory (see lib/demo/store.ts) and resets on server
-// restart.
+// Cookie-based demo session, lets the frontend (and a link sent to someone
+// for review) be explored end to end with no Supabase project connected.
+// Not real auth: one-click, no password, state lives in-memory (see
+// lib/demo/store.ts) and resets on server restart.
 //
-// SECURITY: this bypasses authentication entirely, so it is opt-in via
-// NEXT_PUBLIC_ENABLE_DEMO and force-disabled in production builds. Every
-// read of the demo role goes through `getDemoRole()`, so flipping the flag
-// off closes the bypass everywhere at once.
+// SECURITY: this bypasses authentication entirely, so it only turns on
+// when BOTH are true:
+//   1. NEXT_PUBLIC_ENABLE_DEMO=true is explicitly set, and
+//   2. no real Supabase project is connected (checked via the same env
+//      vars lib/supabase/server.ts needs).
+// Condition 2 is the real safety rail, not condition 1. A flag someone
+// forgets to unset is a certainty, not a risk to plan around; this way,
+// the moment a real Supabase project is connected (real customer data
+// becomes reachable), the demo bypass switches itself off, flag or no
+// flag. See proxy.ts for the mirrored check on the middleware side.
 const DEMO_COOKIE = "demo_role";
 
 export type DemoRole = "admin" | "customer";
 
 export function isDemoEnabled() {
-  if (process.env.NODE_ENV === "production") return false;
-  return process.env.NEXT_PUBLIC_ENABLE_DEMO === "true";
+  if (process.env.NEXT_PUBLIC_ENABLE_DEMO !== "true") return false;
+  const hasRealBackend = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  return !hasRealBackend;
 }
 
 export async function getDemoRole(): Promise<DemoRole | null> {
