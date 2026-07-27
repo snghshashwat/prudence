@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { hasRealSupabaseConfig } from "@/lib/env";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/admin"];
 const AUTH_PATHS = ["/login", "/signup"];
@@ -19,11 +20,7 @@ export async function proxy(request: NextRequest) {
   // the flag itself must not grant access once a real Supabase project is
   // connected, that's the actual safety rail, not the flag.
   const demoEnabled =
-    process.env.NEXT_PUBLIC_ENABLE_DEMO === "true" &&
-    !(
-      process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
+    process.env.NEXT_PUBLIC_ENABLE_DEMO === "true" && !hasRealSupabaseConfig();
   const demoRole = demoEnabled
     ? request.cookies.get("demo_role")?.value
     : undefined;
@@ -40,17 +37,15 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
-  // No Supabase project connected yet (e.g. marketing-only deploy before
-  // the backend is wired up). createServerClient throws synchronously on
-  // an empty URL/key, which would 500 every visit to /login or /signup,
-  // not just the parts of the app that actually need a database. Treat
-  // "not configured" as "not logged in": auth pages render normally,
-  // protected pages redirect to login, nothing crashes.
-  const supabaseConfigured = Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
-  if (!supabaseConfigured) {
+  // No real Supabase project connected yet (e.g. a marketing-only deploy,
+  // or .env.local still has the placeholder key from scaffolding).
+  // createServerClient throws synchronously on an empty URL/key, and would
+  // hang or fail against a placeholder one, either way 500-ing every visit
+  // to /login or /signup, not just the parts of the app that actually need
+  // a database. Treat "not really configured" as "not logged in": auth
+  // pages render normally, protected pages redirect to login, nothing
+  // crashes.
+  if (!hasRealSupabaseConfig()) {
     if (isProtected) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";

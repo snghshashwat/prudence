@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Mail, Phone, MapPin, Clock, ShieldCheck } from "lucide-react";
 import { ContactForm } from "@/components/marketing/contact-form";
+import { FadeImage } from "@/components/marketing/fade-image";
 import { Eyebrow, Reveal } from "@/components/marketing/motion-primitives";
 import { siteConfig } from "@/lib/site-config";
 import { engagementSteps } from "@/lib/content/services";
@@ -29,8 +29,8 @@ export function ContactSection() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <Reveal className="space-y-8">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary">
+              <FadeImage
                 src="/photos/calendar-booking.jpg"
                 alt=""
                 fill

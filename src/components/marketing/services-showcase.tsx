@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { servicePillars } from "@/lib/content/services";
 import { Button } from "@/components/ui/button";
+import { FadeImage } from "@/components/marketing/fade-image";
 import { Eyebrow, Reveal } from "@/components/marketing/motion-primitives";
 
 const photos: Record<string, string> = {
@@ -35,11 +35,11 @@ export function ServicesShowcase() {
                 className="scroll-mt-28 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16"
               >
                 <Reveal
-                  className={`relative aspect-[4/3] overflow-hidden rounded-2xl ${
+                  className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary ${
                     imageFirst ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
-                  <Image
+                  <FadeImage
                     src={photos[pillar.pillar]}
                     alt=""
                     fill

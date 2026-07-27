@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
+import { hasRealSupabaseConfig } from "@/lib/env";
 
 // Cookie-based demo session, lets the frontend (and a link sent to someone
 // for review) be explored end to end with no Supabase project connected.
@@ -22,11 +23,7 @@ export type DemoRole = "admin" | "customer";
 
 export function isDemoEnabled() {
   if (process.env.NEXT_PUBLIC_ENABLE_DEMO !== "true") return false;
-  const hasRealBackend = Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
-  return !hasRealBackend;
+  return !hasRealSupabaseConfig();
 }
 
 export async function getDemoRole(): Promise<DemoRole | null> {

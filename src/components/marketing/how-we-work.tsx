@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { engagementSteps } from "@/lib/content/services";
+import { FadeImage } from "@/components/marketing/fade-image";
 import {
   Eyebrow,
   Reveal,
@@ -18,8 +18,8 @@ export function HowWeWork() {
         </Reveal>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
+          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary">
+            <FadeImage
               src="/photos/skyline-growth.jpg"
               alt=""
               fill

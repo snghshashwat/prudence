@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Handshake, BadgeCheck, Lock, Globe2 } from "lucide-react";
 import { valueProps } from "@/lib/content/services";
+import { FadeImage } from "@/components/marketing/fade-image";
 import {
   Eyebrow,
   Reveal,
@@ -28,8 +28,8 @@ export function ValueProps() {
       className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8"
     >
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <Reveal className="relative order-2 aspect-[4/3] overflow-hidden rounded-2xl lg:order-1">
-          <Image
+        <Reveal className="relative order-2 aspect-[4/3] overflow-hidden rounded-2xl bg-secondary lg:order-1">
+          <FadeImage
             src="/photos/family-home.jpg"
             alt=""
             fill

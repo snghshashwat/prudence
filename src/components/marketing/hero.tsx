@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FadeImage } from "@/components/marketing/fade-image";
 import { FadeUp } from "@/components/marketing/motion-primitives";
 import { siteConfig } from "@/lib/site-config";
 
@@ -48,8 +48,11 @@ export function Hero() {
           </FadeUp>
         </div>
 
-        <FadeUp delay={200} className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[3/2]">
-          <Image
+        <FadeUp
+          delay={200}
+          className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary lg:aspect-[3/2]"
+        >
+          <FadeImage
             src="/photos/hero-advisor.jpg"
             alt=""
             fill
