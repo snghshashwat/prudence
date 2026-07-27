@@ -20,7 +20,7 @@ export function HowWeWork() {
         <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image
-              src="/photos/calendar-booking.jpg"
+              src="/photos/skyline-growth.jpg"
               alt=""
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

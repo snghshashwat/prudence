@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Mail, Phone, MapPin, Clock, ShieldCheck } from "lucide-react";
 import { ContactForm } from "@/components/marketing/contact-form";
 import { Eyebrow, Reveal } from "@/components/marketing/motion-primitives";
@@ -28,6 +29,29 @@ export function ContactSection() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <Reveal className="space-y-8">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+              <Image
+                src="/photos/calendar-booking.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-deep/90 via-deep/20 to-transparent"
+              />
+              <div className="absolute right-5 bottom-5 left-5 text-white">
+                <p className="font-heading text-lg font-medium">
+                  Book a Discovery Call
+                </p>
+                <p className="mt-1 text-sm text-white/80">
+                  Find out how we can help, in a confidential first
+                  conversation.
+                </p>
+              </div>
+            </div>
+
             <div className="space-y-5">
               {details.map((d) => (
                 <div key={d.label} className="flex gap-3">
