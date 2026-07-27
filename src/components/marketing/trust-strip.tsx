@@ -1,5 +1,23 @@
 import { ShieldCheck, Scale, Globe2, FileCheck } from "lucide-react";
 import { RevealGroup, RevealItem } from "@/components/marketing/motion-primitives";
+import { Marquee } from "@/components/marketing/marquee";
+
+// Ticker beneath the credential grid. Same source discipline as the cards:
+// every line is something the brochure actually claims.
+const marqueeItems = [
+  "Income tax return filing for NRIs",
+  "FEMA & RBI compliance advisory",
+  "DTAA advisory and tax relief",
+  "Form 15CA / 15CB repatriation",
+  "Family constitution drafting",
+  "Private family trust formation",
+  "Succession & estate planning",
+  "Virtual and fractional CFO",
+  "GST registration and returns",
+  "Statutory audit and assurance",
+  "Transfer pricing advisory",
+  "PAN, Aadhaar and OCI assistance",
+];
 
 // Credential/trust bar. Every claim here is drawn from the brochure, keep
 // it that way. Regulated-industry marketing shouldn't carry a capability
@@ -48,6 +66,10 @@ export function TrustStrip() {
           </RevealItem>
         ))}
       </RevealGroup>
+
+      <div className="mt-12 border-t border-border pt-8">
+        <Marquee items={marqueeItems} speed={55} />
+      </div>
     </section>
   );
 }
