@@ -144,7 +144,7 @@ export function ContactForm() {
           type="submit"
           size="lg"
           disabled={pending}
-          className="h-11 shrink-0 gap-2 bg-primary px-6 text-primary-foreground hover:bg-primary/90"
+          className="h-11 shrink-0 gap-2 rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90"
         >
           <Send className="size-4" />
           {pending ? "Sending..." : "Send enquiry"}

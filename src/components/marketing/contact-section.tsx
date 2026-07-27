@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin, Clock, ShieldCheck } from "lucide-react";
 import { ContactForm } from "@/components/marketing/contact-form";
-import { Reveal } from "@/components/marketing/motion-primitives";
+import { Eyebrow, Reveal } from "@/components/marketing/motion-primitives";
 import { siteConfig } from "@/lib/site-config";
 import { engagementSteps } from "@/lib/content/services";
 
@@ -16,9 +16,7 @@ export function ContactSection() {
     <section id="enquire" className="scroll-mt-24 bg-cream py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-            Get In Touch
-          </p>
+          <Eyebrow>Get In Touch</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-medium text-navy sm:text-4xl">
             Let&apos;s start with a conversation
           </h2>

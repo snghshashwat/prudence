@@ -15,6 +15,7 @@
   --color-deep: var(--deep);
   --color-deep-dark: var(--deep-dark);
   --color-cream: var(--cream);
+  --color-oxblood: var(--oxblood);
   --color-status-not-started: var(--status-not-started);
   --color-status-in-progress: var(--status-in-progress);
   --color-status-completed: var(--status-completed);
@@ -78,48 +79,51 @@
  */
 :root {
   --background: #ffffff;
-  --foreground: #16233f;
+  --foreground: #2e1b5e;
   --card: #ffffff;
-  --card-foreground: #16233f;
+  --card-foreground: #2e1b5e;
   --popover: #ffffff;
-  --popover-foreground: #16233f;
-  --primary: #16233f;
+  --popover-foreground: #2e1b5e;
+  --primary: #241541;
   --primary-foreground: #ffffff;
-  --secondary: #f5f2ec;
-  --secondary-foreground: #16233f;
-  --muted: #f5f2ec;
-  --muted-foreground: #6b6455;
-  --accent: #ece7db;
-  --accent-foreground: #16233f;
+  --secondary: #f1ecfb;
+  --secondary-foreground: #2e1b5e;
+  --muted: #f1ecfb;
+  --muted-foreground: #6b6280;
+  --accent: #ece3fb;
+  --accent-foreground: #2e1b5e;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e6e1d6;
-  --input: #e6e1d6;
-  --ring: #16233f;
-  --chart-1: #16233f;
-  --chart-2: #6b6455;
-  --chart-3: #8a9b8e;
-  --chart-4: #a39b8b;
-  --chart-5: #c9beaa;
+  --border: #e3ddf2;
+  --input: #e3ddf2;
+  --ring: #6d4aff;
+  --chart-1: #2e1b5e;
+  --chart-2: #6d4aff;
+  --chart-3: #9c8bc9;
+  --chart-4: #c4b8e8;
+  --chart-5: #e3ddf2;
   --radius: 0.5rem;
-  --sidebar: #16233f;
-  --sidebar-foreground: #eef1f6;
+  --sidebar: #241541;
+  --sidebar-foreground: #eee9fb;
   --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #16233f;
-  --sidebar-accent: #223052;
-  --sidebar-accent-foreground: #eef1f6;
-  --sidebar-border: #263a63;
+  --sidebar-primary-foreground: #241541;
+  --sidebar-accent: #362361;
+  --sidebar-accent-foreground: #eee9fb;
+  --sidebar-border: #3b2568;
   --sidebar-ring: #ffffff;
 
-  /* `navy` is the heading/text brand colour and flips light in dark mode.
-     `deep` is the always-dark, always-navy surface (sidebar, hero, footer):
-     it does NOT flip, so those surfaces stay the brand color in both themes. */
-  --navy: #16233f;
-  --navy-dark: #0d1526;
-  --deep: #16233f;
-  --deep-dark: #0d1526;
-  --cream: #f5f2ec;
+  /* Titan-style purple system. `navy` is the heading/text brand colour
+     (deep indigo-violet) and flips light in dark mode. `deep` is the
+     always-dark surface (buttons, footer, statement break): it does NOT
+     flip, so those surfaces stay the brand color in both themes. */
+  --navy: #2e1b5e;
+  --navy-dark: #1b1038;
+  --deep: #241541;
+  --deep-dark: #180d2c;
+  --cream: #f1ecfb;
+  /* Vivid violet accent, used for eyebrow rules, arrow bullets, links. */
+  --oxblood: #6d4aff;
   --status-not-started: #8a8578;
-  --status-in-progress: #16233f;
+  --status-in-progress: #2e1b5e;
   --status-completed: #3f6b4f;
 }
 
@@ -166,6 +170,7 @@
   --deep: #070707;
   --deep-dark: #000000;
   --cream: #151515;
+  --oxblood: #9a4a4a;
   --status-not-started: #8a8a8a;
   --status-in-progress: #ededed;
   --status-completed: #7fb08d;

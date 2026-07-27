@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { siteConfig } from "@/lib/site-config";
 import { AnimatedCounter } from "@/components/marketing/animated-counter";
@@ -33,6 +34,15 @@ export function StatementBreak() {
       ref={ref}
       className="relative isolate overflow-hidden bg-deep py-28 text-white sm:py-36"
     >
+      <Image
+        src="/photos/skyline-growth.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover opacity-40"
+        aria-hidden="true"
+      />
+
       {/* Layered depth: soft radial wash plus a fine dot grid. */}
       <div
         aria-hidden="true"
@@ -56,11 +66,11 @@ export function StatementBreak() {
         style={{ y, opacity }}
         className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
       >
-        <div className="mx-auto h-px w-14 bg-white/25" />
+        <div className="mx-auto h-px w-14 bg-oxblood/60" />
         <p className="mt-10 font-heading text-2xl leading-relaxed italic sm:text-3xl lg:text-4xl">
           &ldquo;{siteConfig.quote}&rdquo;
         </p>
-        <div className="mx-auto mt-10 h-px w-14 bg-white/25" />
+        <div className="mx-auto mt-10 h-px w-14 bg-oxblood/60" />
 
         <dl className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-3">
           {[

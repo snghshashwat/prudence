@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { Reveal } from "@/components/marketing/motion-primitives";
+import { Eyebrow, Reveal } from "@/components/marketing/motion-primitives";
 import { siteConfig } from "@/lib/site-config";
 
 // Answers are grounded in the brochure (engagement model, service scope,
@@ -37,9 +37,7 @@ export function Faq() {
     <section id="faq" className="scroll-mt-24 py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
-          <p className="text-sm font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-            Questions
-          </p>
+          <Eyebrow className="justify-center">Questions</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-medium text-navy sm:text-4xl">
             Before you reach out
           </h2>

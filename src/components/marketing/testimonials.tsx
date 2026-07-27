@@ -1,5 +1,6 @@
 import { Quote } from "lucide-react";
 import {
+  Eyebrow,
   Reveal,
   RevealGroup,
   RevealItem,
@@ -23,9 +24,7 @@ export function Testimonials() {
     <section className="border-y border-border bg-cream py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-            In Their Words
-          </p>
+          <Eyebrow>In Their Words</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-medium text-navy sm:text-4xl">
             What clients say
           </h2>

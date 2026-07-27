@@ -112,6 +112,34 @@ export function HoverLift({
   );
 }
 
+/**
+ * Small tracked-caps label used above section headings. The oxblood rule
+ * is the one recurring accent mark on the site, deliberately not a filled
+ * badge or pill, so it reads as an editorial mark rather than a UI chip.
+ */
+export function Eyebrow({
+  children,
+  className,
+  tone = "muted",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  tone?: "muted" | "white";
+}) {
+  return (
+    <p
+      className={cn(
+        "inline-flex items-center gap-2 text-sm font-semibold tracking-[0.15em] uppercase",
+        tone === "white" ? "text-white/70" : "text-muted-foreground",
+        className
+      )}
+    >
+      <span className="h-px w-6 bg-oxblood" aria-hidden="true" />
+      {children}
+    </p>
+  );
+}
+
 /** Hero entrance, plays on mount rather than on scroll. */
 export function FadeUp({
   children,

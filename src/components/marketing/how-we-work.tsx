@@ -1,48 +1,57 @@
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 import { engagementSteps } from "@/lib/content/services";
 import {
+  Eyebrow,
   Reveal,
-  RevealGroup,
-  RevealItem,
 } from "@/components/marketing/motion-primitives";
 
 export function HowWeWork() {
   return (
     <section id="how-we-work" className="scroll-mt-24 bg-cream py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <p className="text-sm font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-            Engagement
-          </p>
+        <Reveal className="text-center">
+          <Eyebrow className="justify-center">Engagement</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-medium text-navy sm:text-4xl">
             How We Work
           </h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-            A clear, documented path from first conversation to an ongoing
-            relationship, so you always know what happens next.
-          </p>
         </Reveal>
 
-        <div className="relative mt-14">
-          {/* Connector line across the four steps on large screens */}
-          <div
-            className="absolute top-5 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-navy/20 to-transparent lg:block"
-            aria-hidden="true"
-          />
-          <RevealGroup className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {engagementSteps.map((s) => (
-              <RevealItem key={s.step} className="relative">
-                <div className="flex size-10 items-center justify-center rounded-full border border-navy/25 bg-background font-heading text-sm text-navy">
-                  {s.step}
-                </div>
-                <h3 className="mt-4 font-heading text-lg font-medium text-navy">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+            <Image
+              src="/photos/calendar-booking.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </Reveal>
+
+          <Reveal delay={80}>
+            {engagementSteps.map((s, i) => (
+              <details
+                key={s.step}
+                className="group border-b border-navy/15 py-5 first:border-t"
+                {...(i === 0 ? { open: true } : {})}
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 marker:content-none">
+                  <span className="flex items-baseline gap-4">
+                    <span className="font-heading text-sm text-oxblood">
+                      {s.step}
+                    </span>
+                    <span className="font-heading text-lg font-medium text-navy sm:text-xl">
+                      {s.title}
+                    </span>
+                  </span>
+                  <ChevronDown className="size-5 shrink-0 text-navy/50 transition-transform duration-200 group-open:rotate-180" />
+                </summary>
+                <p className="mt-3 pl-9 text-sm leading-relaxed text-muted-foreground">
                   {s.description}
                 </p>
-              </RevealItem>
+              </details>
             ))}
-          </RevealGroup>
+          </Reveal>
         </div>
       </div>
     </section>

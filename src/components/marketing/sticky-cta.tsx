@@ -35,7 +35,7 @@ export function StickyCta() {
             </p>
             <Button
               size="sm"
-              className="shrink-0 bg-primary text-primary-foreground hover:bg-primary/90"
+              className="shrink-0 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
               asChild
             >
               <Link href="/#enquire">Enquire</Link>

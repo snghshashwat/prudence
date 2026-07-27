@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Plane, Users2, TrendingUp, ArrowRight } from "lucide-react";
 import {
+  Eyebrow,
   Reveal,
   RevealGroup,
   RevealItem,
@@ -42,9 +43,7 @@ export function WhoWeServe() {
     <section className="border-y border-border bg-cream py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-            Who We Serve
-          </p>
+          <Eyebrow>Who We Serve</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-medium text-navy sm:text-4xl">
             Start where you are
           </h2>
